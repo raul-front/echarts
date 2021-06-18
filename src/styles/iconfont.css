@@ -1,0 +1,158 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 2550778 */
+  src: url('//at.alicdn.com/t/font_2550778_cdxna6cc6vv.woff2?t=1622636627890') format('woff2'),
+    url('//at.alicdn.com/t/font_2550778_cdxna6cc6vv.woff?t=1622636627890') format('woff'),
+    url('//at.alicdn.com/t/font_2550778_cdxna6cc6vv.ttf?t=1622636627890') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-team:before {
+  content: "\e7af";
+}
+
+.icon-right:before {
+  content: "\e7f0";
+}
+
+.icon-left:before {
+  content: "\e7f1";
+}
+
+.icon-close:before {
+  content: "\e7fc";
+}
+
+.icon-reload:before {
+  content: "\e788";
+}
+
+.icon-setting:before {
+  content: "\e78e";
+}
+
+.icon-eye:before {
+  content: "\e78f";
+}
+
+.icon-edit-square:before {
+  content: "\e791";
+}
+
+.icon-user:before {
+  content: "\e7ae";
+}
+
+.icon-delete:before {
+  content: "\e7c3";
+}
+
+.icon-home:before {
+  content: "\e7c6";
+}
+
+.icon-folder:before {
+  content: "\e7d1";
+}
+
+.icon-cloud-upload:before {
+  content: "\e7d9";
+}
+
+.icon-cloud-download:before {
+  content: "\e7da";
+}
+
+.icon-image:before {
+  content: "\e7de";
+}
+
+.icon-link:before {
+  content: "\e7e2";
+}
+
+.icon-pushpin:before {
+  content: "\e7e3";
+}
+
+.icon-tag:before {
+  content: "\e7e4";
+}
+
+.icon-share:before {
+  content: "\e7e7";
+}
+
+.icon-up:before {
+  content: "\e7eb";
+}
+
+.icon-down:before {
+  content: "\e7ec";
+}
+
+.icon-fullscreen:before {
+  content: "\e7ed";
+}
+
+.icon-fullscreen-exit:before {
+  content: "\e7ee";
+}
+
+.icon-download:before {
+  content: "\e7ef";
+}
+
+.icon-indent:before {
+  content: "\e7f3";
+}
+
+.icon-outdent:before {
+  content: "\e7f4";
+}
+
+.icon-zoomout:before {
+  content: "\e897";
+}
+
+.icon-zoomin:before {
+  content: "\e898";
+}
+
+.icon-caret-down:before {
+  content: "\e8ec";
+}
+
+.icon-caret-up:before {
+  content: "\e8ed";
+}
+
+.icon-caret-right:before {
+  content: "\e8ee";
+}
+
+.icon-caret-left:before {
+  content: "\e8ef";
+}
+
+.icon-search:before {
+  content: "\e8f0";
+}
+
+.icon-rotate-left:before {
+  content: "\e901";
+}
+
+.icon-rotate-right:before {
+  content: "\e902";
+}
+
+.icon-dian:before {
+  content: "\e605";
+}

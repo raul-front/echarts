@@ -1,0 +1,44 @@
+
+@mixin effect() {
+  animation-duration: 0.2s;
+  animation-fill-mode: both;
+}
+.dialog-zoom-enter,.dialog-zoom-enter-active,.dialog-zoom-enter-to{
+  @include effect();
+  animation-timing-function: cubic-bezier(0.08, 0.82, 0.17, 1);
+  animation-name: DialogZoomIn;
+  animation-play-state: running;
+
+}
+.dialog-zoom-enter{
+  opacity: 0;
+  animation-play-state: paused !important;
+}
+.dialog-zoom-leave,.dialog-zoom-leave-active,.dialog-zoom-leave-to{
+  @include effect();
+  animation-timing-function: cubic-bezier(0.6, 0.04, 0.98, 0.34);
+  animation-name: DialogZoomOut;
+}
+.dialog-zoom-leave{
+  animation-play-state: paused !important;
+}
+
+@keyframes DialogZoomIn {
+  0% {
+    opacity: 0;
+    transform: scale(0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1, 1);
+  }
+}
+@keyframes DialogZoomOut {
+  0% {
+    transform: scale(1, 1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0, 0);
+  }
+}

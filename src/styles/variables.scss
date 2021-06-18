@@ -1,0 +1,86 @@
+$color-primary: rgb(9, 96, 189);
+
+$menu-bg: #001529;
+$menu-text-color: rgba(255, 255, 255, .85);
+$menu-active-bg: $color-primary;
+$menu-active-text-color: #fff;
+$submenu-bg: #0c2135;
+$submenu-text-color: rgba(255, 255, 255, .85);
+$submenu-active-bg: $color-primary;
+$submenu-active-text-color: #fff;
+
+
+/* ******************** 颜色 ******************** */
+$color-white: #fff;
+$color-black: #000;
+$color-transparent: transparent;
+
+/* 行为相关颜色 */
+// $color-primary: #01BFBF;
+$color-primary: rgb(9, 96, 189);
+$color-primary-light: mix($color-white, $color-primary, 20%);
+$color-success: #67c23a;
+$color-warning: #e6a23c;
+$color-danger: #f56c6c;
+$color-info: #909399;
+
+/* border */
+$color-border: #DCDFE6;
+$color-border-2: #E4E7ED;
+$color-border-3: #EBEEF5;
+$color-border-4: #F2F6FC;
+
+/* 文字基本颜色 */
+$color-title: #404040;
+$color-sub-title: #404040;
+$color-text: #7b7b7b;
+$color-text-description: #909399;
+$color-text-placeholder: #C0C4CC;
+$color-link: #0366d6;
+
+/* 背景 */
+$bg-color: #fff;
+$bg-color-active: #eee;
+$bg-color-hover: #f8f8f8;
+
+
+/* 文字尺寸 */
+$font-size-sm-s: 10px;
+$font-size-sm: 12px;
+$font-size: 14px;
+$font-size-x: 16px;
+$font-size-lg: 18px;
+$font-size-lg-x: 22px;
+
+// 面包屑配置
+$breadcrumb-height: 40px;
+$breadcrumb-bgc: transparent;
+// $breadcrumb-bgc: #ddd;
+
+/*** 背景颜色 ***/
+$html-bgc: #f5f7fa;
+$layout-bgc: #F0F0F0;
+$footer-bgc: #eee;
+$footer-c: #000;
+$menu-bgc: #1F1643;
+$menu-c: #fff;
+$menu-level-1-bgc: #1F1643;
+$menu-level-1-hover-bgc: #181137;
+$menu-level-1-opened-bgc: #181137;
+$menu-level-1-active-c: #181137;
+$menu-level-2-bgc: #181137;
+$menu-level-2-hover-bgc: #eee;
+$menu-level-2-active-c: #fff;
+$menu-logo-bgc: #1F1643;
+$menu-help-bgc: #3E365F;
+$menu-help-bgc-hover: #4c4274;
+$menu-help-c: #fff;
+
+/**** dialog颜色配置 ****/
+$dialog-sc: #4c5e70;
+$dialog-title-bgc: #020508;
+$dialog-title-c: #fff;
+$dialog-footer-c: #f5f7fa;
+
+/**** select颜色配置 ****/
+$select-bg-color: #3e5265;
