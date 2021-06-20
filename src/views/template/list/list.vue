@@ -33,7 +33,7 @@
         <el-button type="primary">添加员工（dialog）</el-button>
         <el-button type="primary">添加员工（page）</el-button>
         <el-tooltip effect="light" content="刷新" placement="top">
-          <el-button type="info" icon="el-icon-refresh" :loading="tableData.tableLoading"></el-button>
+          <el-button type="info" icon="el-icon-refresh" @click="handleRefresh" :loading="tableData.tableLoading"></el-button>
         </el-tooltip>
       </template>
       <template #table>
@@ -61,14 +61,12 @@
 </template>
 
 <script>
-import { ref, onMounted, computed, watch, reactive, nextTick, onBeforeUnmount } from 'vue'
+import { ref } from 'vue'
 import { listUser, deleteUser } from 'api/template'
 import RTable from '@/components/common/RTable.vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useStore } from 'vuex'
 import { employeeStatusData } from '@/filter/const'
-import { getRouteQuery, updateRouteQuery, clearRouteQuery, confirmExecHandle, constDataToArray, filter } from 'utils/func'
-
+import { confirmExecHandle, constDataToArray, filter } from 'utils/func'
+import useTablePage from 'hooks/useTablePage'
 import { ElMessage } from 'element-plus'
 
 export default {
@@ -76,69 +74,16 @@ export default {
     RTable,
   },
   setup (props, { emit }) {
-    const route = useRoute()
-    const router = useRouter()
-    const store = useStore()
     const employeeStatusList = ref(constDataToArray(employeeStatusData, { label: '员工状态', value: '' }))
     const selectSearchList = ref([
       { label: '姓名', value: 'name' },
       { label: '手机', value: 'phone' },
     ])
 
-    let routerName = ''
-    let isClearRouterQuery = true
-    const initQuery = {}
-
-    const componentFlexPageRef = ref(null)
-    const componentFlexTableRef = ref(null)
-
-    const tableData = reactive({
-      tableHeight: null,
-      tableTotal: 0,
-      tableData: [],
-      tableLoading: false,
-      selectedTable: [],
-    })
-    const batchHandleEnabled = computed(() => {
-      return tableData.selectedTable.length > 0
-    })
-
-    watch(() => route.query, val => {
-      console.log('route.query change', val)
-      if (JSON.stringify(val) === '{}') {
-        initRoute()
-      } else {
-        getData()
-      }
-    })
-
-    onMounted(() => {
-      routerName = route.name
-      isClearRouterQuery = true
-
-      initRoute()
-      nextTick(() => [
-        setTableHeight(),
-      ])
-    })
-
-    onBeforeUnmount(() => {
-      if (isClearRouterQuery) {
-        clearRouteQuery(router, routerName)
-      }
-    })
-
-    const handleSelectionChange = (values) => {
-      tableData.selectedTable = values
-    }
-    const refresh = () => {
-      getData()
-    }
-    const getData = () => {
-      tableData.tableLoading = true
-      const query = getRouteQuery(route.query)
-      listUser(query).then(({ total, items }) => {
-        tableData.tableData = items.map(x => {
+    const getDataHandle = (query) => {
+      return listUser(query).then(res => {
+        let list = res.items || []
+        list = list.map(x => {
           return {
             id: x.id,
             name: x.name,
@@ -149,54 +94,18 @@ export default {
             addr: x.addr,
           }
         })
-        tableData.tableTotal = total
-        tableData.tableLoading = false
-      }).catch(_ => {
-        console.log('e', _)
-        tableData.tableData = []
-        tableData.tableTotal = 0
-        tableData.tableLoading = false
+        return { list: list, total: res.total }
       })
     }
-    // const getDataHandle = (query) => {
-    //   return listUser(query).then(res => {
-    //     console.log('listxxxxx', res)
-    //     let list = res.items || []
-    //     list = list.map(x => {
-    //       return {
-    //         id: x.id,
-    //         name: x.name,
-    //         age: x.age,
-    //         birth: x.birth,
-    //         sex: x.sex,
-    //         sexLabel: filter('sex', x.sex),
-    //         addr: x.addr,
-    //       }
-    //     })
-    //     return { list: list, count: res.total }
-    //   })
-    // }
 
-    const initRoute = () => {
-      let pageOption = store.state.user.pageOption[route.name]
-      const query = route.query // 有query.super表示从别的页面跳转过来
-      if (query.super || !pageOption) {
-        delete query.super
-        pageOption = Object.assign({ limit: 10, offset: 0, current: 1, total: 0 }, query, initQuery)
-      }
-      updateRouteQuery(route, router, pageOption)
-    }
-
-    const setTableHeight = () => {
-      const pageHeight = componentFlexPageRef.value.offsetHeight - 20
-      const cTableHeight = componentFlexTableRef.value.$el.offsetHeight
-      let height = pageHeight - cTableHeight + 105
-      if (height < 100) {
-        height = null
-      }
-      console.log('table height:', height)
-      tableData.tableHeight = height
-    }
+    const {
+      componentFlexPageRef,
+      componentFlexTableRef,
+      batchHandleEnabled,
+      tableData,
+      handleSelectionChange,
+      handleRefresh,
+    } = useTablePage(getDataHandle)
 
     const goUpdatePage = (item) => {
       console.log('goUpdatePage', item)
@@ -206,7 +115,7 @@ export default {
       confirmExecHandle('提示', `此操作将永久删除员工 ${item.name}, 是否继续?`, () => {
         return deleteUser(item.id).then(_ => {
           ElMessage.success('删除成功')
-          refresh()
+          handleRefresh()
         }).catch(_ => {})
       })
     }
@@ -215,7 +124,7 @@ export default {
         const apis = tableData.selectedTable.map(x => deleteUser(x.id))
         return Promise.all(apis).then(_ => {
           ElMessage.success('批量执行成功')
-          refresh()
+          handleRefresh()
         }).catch(_ => {})
 
         // 有些资源有批量删除接口
@@ -230,11 +139,13 @@ export default {
     return {
       componentFlexPageRef,
       componentFlexTableRef,
-      employeeStatusList,
-      selectSearchList,
-      tableData,
       batchHandleEnabled,
+      tableData,
       handleSelectionChange,
+      handleRefresh,
+
+      selectSearchList,
+      employeeStatusList,
       handleDeleteConfirm,
       handleBatchDeleteConfirm,
       goUpdatePage,

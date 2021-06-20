@@ -17,7 +17,7 @@
       </div>
       <div class="table-footer-right" v-if="!noPage">
         <el-pagination background
-          v-if="pageData.showPage"
+          v-show="pageData.showPage"
           layout="total, sizes, prev, pager, next, jumper"
           :page-sizes="[10, 20, 50]"
           :total="pageData.realTotal"
