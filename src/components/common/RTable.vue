@@ -1,5 +1,5 @@
 <template>
-  <div class="component-table">
+  <div class="component-r-table">
     <div class="table-header">
       <div class="table-header-left">
         <slot name="handleUpLeftButtons"></slot>
@@ -61,6 +61,13 @@ export default {
     watch(() => props.total, val => {
       pageData.realTotal = val
     })
+    watch(() => route.query, val => {
+      const { limit, offset } = val
+      const thisCurrent = (offset / limit) + 1
+      if (thisCurrent !== pageData.current) {
+        pageData.current = thisCurrent
+      }
+    })
 
     onMounted(() => {
       if (!props.noPage) {
@@ -101,7 +108,7 @@ export default {
 </script>
 
 <style lang="scss">
-.component-table{
+.component-r-table{
   .table-header{
     // margin-bottom: 10px;
     display: flex;

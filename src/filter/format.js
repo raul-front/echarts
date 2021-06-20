@@ -6,36 +6,30 @@
  * 通过format()方法转换
  * eg: format(new Date(), 'date'), 结果为当前日期
  */
+import dayjs from 'dayjs'
 
 export default {
   /** *************** 时间相关 *************** **/
   month: t => {
-    if (t) {
-      const { year, month } = getTimeItem(t)
-      return `${year}-${month}`
-    }
-    return ''
+    if (!t) return ''
+    return dayjs().format('YYYY-MM')
   },
   date: t => {
-    if (t) {
-      const { year, month, day } = getTimeItem(t)
-      return `${year}-${month}-${day}`
-    }
-    return ''
+    if (!t) return ''
+    return dayjs().format('YYYY-MM-DD')
   },
   minute: t => {
-    if (t) {
-      const { year, month, day, hour, minute } = getTimeItem(t)
-      return `${year}-${month}-${day} ${hour}:${minute}`
-    }
-    return ''
+    if (!t) return ''
+    return dayjs().format('YYYY-MM-DD HH:mm')
   },
   second: t => {
-    if (t) {
-      const { year, month, day, hour, minute, second } = getTimeItem(t)
-      return `${year}-${month}-${day} ${hour}:${minute}:${second}`
-    }
-    return ''
+    if (!t) return ''
+    return dayjs().format('YYYY-MM-DD HH:mm:ss')
+  },
+  timestamp: t => {
+    if (!t) return ''
+    // return dayjs(t).unix()
+    return (new Date(t)).getTime()
   },
 
   /** *************** 数据相关 *************** **/
@@ -79,18 +73,7 @@ export default {
   },
 }
 
-const getTimeItem = t => {
-  const date = new Date(t)
-  return {
-    year: date.getFullYear(),
-    month: formatNumber(date.getMonth() + 1),
-    day: formatNumber(date.getDate()),
-    hour: formatNumber(date.getHours()),
-    minute: formatNumber(date.getMinutes()),
-    second: formatNumber(date.getSeconds()),
-  }
-}
-const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
-}
+// const formatNumber = n => {
+//   n = n.toString()
+//   return n[1] ? n : '0' + n
+// }

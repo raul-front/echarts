@@ -6,7 +6,6 @@
       </div>
     </div>
     <div class="header-right">
-      <a class="nav-item" href="/index.html#/">前台</a>
       <full-screen class="nav-item"></full-screen>
       <el-dropdown class="nav-item" @command="hanleChangeMenu">
         <div class="userinfo">
