@@ -12,5 +12,5 @@ localDeploy:
 deploy:
 	curl https://devtools.qiniu.com/qshell-v2.6.1-linux-amd64.tar.gz | tar zxv; \
 	chmod +x qshell; \
-	./qshell account ${AK} ${SK} raul; \
+	./qshell account ${AK} ${SK} ; \
 	./qshell qupload2 --src-dir=./dist/ --overwrite --bucket=${BUCKET}
