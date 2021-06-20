@@ -8,10 +8,17 @@
  */
 
 // 性别
-export const sex = {
-  0: '未知',
+export const sexData = {
+  0: '女',
   1: '男',
   default: '保密',
+}
+
+// 员工状态
+export const employeeStatusData = {
+  DISABLE: '离职',
+  ENABLE: '正常',
+  default: '',
 }
 
 // 证件类型

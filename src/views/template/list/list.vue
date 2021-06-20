@@ -2,7 +2,32 @@
   <div class="component-flex-page template-list-list" ref="componentFlexPageRef">
     <r-table :total="tableData.tableTotal" ref="componentFlexTableRef">
       <template #handleUpLeftButtons>
-        <span>handleUpLeftButtons</span>
+        <el-form :inline="true">
+            <!-- 下拉列表 list从const中获取-->
+            <el-form-item>
+              <page-select queryKey="status" :list="employeeStatusList"></page-select>
+            </el-form-item>
+            <!-- 带选项的搜索输入框 -->
+            <el-form-item>
+              <page-search-input :list="selectSearchList"></page-search-input>
+            </el-form-item>
+            <!-- 年选择 -->
+            <el-form-item>
+              <select-date type="year"></select-date>
+            </el-form-item>
+            <!-- 月份选择 -->
+            <el-form-item>
+              <select-date :allow-after="false" type="month"></select-date>
+            </el-form-item>
+            <!-- 日期选择 -->
+            <el-form-item>
+              <select-date></select-date>
+            </el-form-item>
+            <!-- 时间选择 -->
+            <el-form-item>
+              <select-time></select-time>
+            </el-form-item>
+        </el-form>
       </template>
       <template #handleUpRightButtons>
         <span>handleUpRightButtons</span>
@@ -40,12 +65,13 @@
 </template>
 
 <script>
-import { ref, onMounted, computed, toRaw, watch, reactive, nextTick, onBeforeUnmount } from 'vue'
+import { ref, onMounted, computed, watch, reactive, nextTick, onBeforeUnmount } from 'vue'
 import { listUser, deleteUser } from 'api/template'
 import RTable from '@/components/common/RTable.vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from 'vuex'
-import { getRouteQuery, updateRouteQuery, clearRouteQuery, confirmExecHandle, filter } from 'utils/func'
+import { employeeStatusData } from '@/filter/const'
+import { getRouteQuery, updateRouteQuery, clearRouteQuery, confirmExecHandle, constDataToArray, filter } from 'utils/func'
 
 import { ElMessage } from 'element-plus'
 
@@ -57,6 +83,11 @@ export default {
     const route = useRoute()
     const router = useRouter()
     const store = useStore()
+    const employeeStatusList = ref(constDataToArray(employeeStatusData, { label: '员工状态', value: '' }))
+    const selectSearchList = ref([
+      { label: '姓名', value: 'name' },
+      { label: '手机', value: 'phone' },
+    ])
 
     let routerName = ''
     let isClearRouterQuery = true
@@ -110,20 +141,8 @@ export default {
     const getData = () => {
       tableData.tableLoading = true
       const query = getRouteQuery(route.query)
-      getDataHandle(query).then(({ list, count }) => {
-        tableData.tableData = list
-        tableData.tableTotal = count
-        tableData.tableLoading = false
-      }).catch(() => {
-        tableData.tableData = []
-        tableData.tableTotal = 0
-        tableData.tableLoading = false
-      })
-    }
-    const getDataHandle = (query) => {
-      return listUser(query).then(res => {
-        let list = res.items || []
-        list = list.map(x => {
+      listUser(query).then(({ total, items }) => {
+        tableData.tableData = items.map(x => {
           return {
             id: x.id,
             name: x.name,
@@ -134,9 +153,33 @@ export default {
             addr: x.addr,
           }
         })
-        return { list: list, count: res.total }
+        tableData.tableTotal = total
+        tableData.tableLoading = false
+      }).catch(_ => {
+        console.log('e', _)
+        tableData.tableData = []
+        tableData.tableTotal = 0
+        tableData.tableLoading = false
       })
     }
+    // const getDataHandle = (query) => {
+    //   return listUser(query).then(res => {
+    //     console.log('listxxxxx', res)
+    //     let list = res.items || []
+    //     list = list.map(x => {
+    //       return {
+    //         id: x.id,
+    //         name: x.name,
+    //         age: x.age,
+    //         birth: x.birth,
+    //         sex: x.sex,
+    //         sexLabel: filter('sex', x.sex),
+    //         addr: x.addr,
+    //       }
+    //     })
+    //     return { list: list, count: res.total }
+    //   })
+    // }
 
     const initRoute = () => {
       let pageOption = store.state.user.pageOption[route.name]
@@ -159,8 +202,8 @@ export default {
       tableData.tableHeight = height
     }
 
-    const goUpdatePage = () => {
-      console.log('goUpdatePage')
+    const goUpdatePage = (item) => {
+      console.log('goUpdatePage', item)
     }
 
     const handleDeleteConfirm = (item) => {
@@ -191,6 +234,8 @@ export default {
     return {
       componentFlexPageRef,
       componentFlexTableRef,
+      employeeStatusList,
+      selectSearchList,
       tableData,
       batchHandleEnabled,
       handleSelectionChange,

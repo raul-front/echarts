@@ -5,7 +5,7 @@
  */
 import * as filterConst from '@/filter/const'
 import formatFunc from '@/filter/format'
-import { ElMessageBox, ElMessage } from 'element-plus'
+import { ElMessageBox } from 'element-plus'
 import dayjs from 'dayjs'
 import store from '../store'
 
@@ -52,7 +52,7 @@ export const constDataToArray = (obj, firstItem = null, isNumber = false) => {
  */
 export const filter = (filterName, arg) => {
   const data = filterConst[`${filterName}Data`]
-  return data[arg] || data.default
+  return data ? (data[arg] || data.default) : ''
 }
 /**
  * format格式化
