@@ -132,10 +132,16 @@ export default {
     const menuCollapsed = computed(() => {
       return store.state.user.menuCollapsed
     })
-    const menu = ref(list)
     const activeMenu = computed(() => {
       return route.name
     })
+    list.forEach(x => {
+      x.isOpen = false
+      if (x.children && activeMenu.value.startsWith(x.name)) {
+        x.isOpen = true
+      }
+    })
+    const menu = ref(list)
 
     const handleChangeMenu = (item) => {
       if (item.children) {
