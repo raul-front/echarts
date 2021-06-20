@@ -7,14 +7,6 @@ export default defineConfig({
   plugins: [
     vue(),
   ],
-  build: {
-    rollupOptions: {
-      input: {
-        main: resolve(__dirname, 'index.html'),
-        admin: resolve(__dirname, 'admin.html'),
-      },
-    },
-  },
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
