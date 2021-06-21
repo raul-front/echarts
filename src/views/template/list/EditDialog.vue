@@ -68,12 +68,12 @@ export default {
     }
 
     const handleAddData = (data) => {
+      // 这里传过来的是form数据，可以重新组装
       return addUser(data)
     }
     const handleUpdateData = (id, data) => {
       return updateUser(id, data)
     }
-
     // 可选函数，用于初始化update数据
     const handleInitUpdateData = (data) => {
       return data

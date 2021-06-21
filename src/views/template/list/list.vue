@@ -12,13 +12,13 @@
               <page-search-input :list="selectSearchList"></page-search-input>
             </el-form-item>
             <!-- 年选择 -->
-            <el-form-item>
+            <!-- <el-form-item>
               <select-date type="year"></select-date>
-            </el-form-item>
+            </el-form-item> -->
             <!-- 月份选择 -->
-            <el-form-item>
+            <!-- <el-form-item>
               <select-date :allow-after="false" type="month"></select-date>
-            </el-form-item>
+            </el-form-item> -->
             <!-- 日期选择 -->
             <el-form-item>
               <select-date></select-date>
@@ -45,7 +45,7 @@
           <el-table-column prop="birth" label="生日" min-width="200"></el-table-column>
           <el-table-column prop="sexLabel" label="性别" min-width="180"></el-table-column>
           <el-table-column prop="addr" label="地址" min-width="180" show-overflow-tooltip></el-table-column>
-          <el-table-column label="操作" width="120" align="center">
+          <el-table-column label="操作" width="300" align="center">
             <template v-slot="scope">
               <div class="table-cell-link" @click="goUpdatePage(scope.row.id)">修改(page)</div>
               <div class="table-cell-link" @click="openUpdateDialog(scope.row)">修改(dialog)</div>
