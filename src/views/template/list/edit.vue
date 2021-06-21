@@ -50,6 +50,16 @@ import useEditPage from 'hooks/useEditPage'
 import { useRouter } from 'vue-router'
 import { validatePhone, regExpEmail, validateFormChineseLength } from 'utils/validate'
 
+const validatorPhone = (rule, value, callback) => {
+  if (value === '') {
+    callback(new Error('请填写手机'))
+    return
+  } else if (!validatePhone(value)) {
+    callback(new Error('请检查手机格式'))
+    return
+  }
+  callback()
+}
 export default {
   components: {
   },
@@ -73,10 +83,7 @@ export default {
         { required: true, type: 'string', message: '请填写姓名', trigger: 'change' },
         { validator: validateFormChineseLength(2, 10), message: '姓名由2-10位汉字组成', trigger: 'change' },
       ],
-      phone: [
-        { required: true, type: 'string', message: '请填写手机号', trigger: 'blur' },
-        { validator: validatePhone, message: '请检查手机格式', trigger: 'blur' },
-      ],
+      phone: [{ required: true, validator: validatorPhone, trigger: 'change' }],
       email: [
         { required: true, type: 'string', message: '请填写邮箱', trigger: 'change' },
         { pattern: regExpEmail, message: '请检查邮箱格式', trigger: 'change' },
