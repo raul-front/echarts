@@ -30,8 +30,8 @@
         </el-form>
       </template>
       <template #handleUpRightButtons>
-        <el-button type="primary">添加员工（dialog）</el-button>
-        <el-button type="primary">添加员工（page）</el-button>
+        <el-button type="primary" @click="openAddDialog">添加员工（dialog）</el-button>
+        <el-button type="primary" @click="goAddPage">添加员工（page）</el-button>
         <el-tooltip effect="light" content="刷新" placement="top">
           <el-button type="info" icon="el-icon-refresh" @click="handleRefresh" :loading="tableData.tableLoading"></el-button>
         </el-tooltip>
@@ -47,7 +47,8 @@
           <el-table-column prop="addr" label="地址" min-width="180" show-overflow-tooltip></el-table-column>
           <el-table-column label="操作" width="120" align="center">
             <template v-slot="scope">
-              <div class="table-cell-link" @click="goUpdatePage(scope.row)">修改</div>
+              <div class="table-cell-link" @click="goUpdatePage(scope.row.id)">修改(page)</div>
+              <div class="table-cell-link" @click="openUpdateDialog(scope.row)">修改(dialog)</div>
               <div class="table-cell-link" @click="handleDeleteConfirm(scope.row)">删除</div>
             </template>
           </el-table-column>
@@ -58,20 +59,21 @@
       </template>
     </r-table>
   </div>
+  <edit-dialog v-model:visible="editDialogData.visible" :edit-data="editDialogData.data"></edit-dialog>
 </template>
 
 <script>
 import { ref } from 'vue'
 import { listUser, deleteUser } from 'api/template'
-import RTable from '@/components/common/RTable.vue'
 import { employeeStatusData } from '@/filter/const'
 import { confirmExecHandle, constDataToArray, filter } from 'utils/func'
 import useTablePage from 'hooks/useTablePage'
 import { ElMessage } from 'element-plus'
+import EditDialog from './EditDialog.vue'
 
 export default {
   components: {
-    RTable,
+    EditDialog,
   },
   setup (props, { emit }) {
     const employeeStatusList = ref(constDataToArray(employeeStatusData, { label: '员工状态', value: '' }))
@@ -105,11 +107,12 @@ export default {
       tableData,
       handleSelectionChange,
       handleRefresh,
+      goAddPage,
+      goUpdatePage,
+      openAddDialog,
+      openUpdateDialog,
+      editDialogData,
     } = useTablePage(getDataHandle)
-
-    const goUpdatePage = (item) => {
-      console.log('goUpdatePage', item)
-    }
 
     const handleDeleteConfirm = (item) => {
       confirmExecHandle('提示', `此操作将永久删除员工 ${item.name}, 是否继续?`, () => {
@@ -148,7 +151,12 @@ export default {
       employeeStatusList,
       handleDeleteConfirm,
       handleBatchDeleteConfirm,
+
+      goAddPage,
       goUpdatePage,
+      openAddDialog,
+      openUpdateDialog,
+      editDialogData,
     }
   },
 }

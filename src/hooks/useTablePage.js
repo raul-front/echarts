@@ -6,7 +6,7 @@
 
 import { ref, computed, watch, reactive, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { getRouteQuery, updateRouteQuery, clearRouteQuery, confirmExecHandle, constDataToArray, filter } from 'utils/func'
+import { getRouteQuery, updateRouteQuery, clearRouteQuery, copy } from 'utils/func'
 import { useStore } from 'vuex'
 
 const useTablePage = (getDataHandle) => {
@@ -14,8 +14,13 @@ const useTablePage = (getDataHandle) => {
   const route = useRoute()
   const router = useRouter()
 
-  const routerName = route.name
-  const isClearRouterQuery = true
+  const editDialogData = reactive({
+    visible: false,
+    data: { action: 'add' },
+  })
+
+  let isClearRouterQuery = true
+  const routeName = route.name
   const initQuery = {}
 
   const componentFlexPageRef = ref(null)
@@ -34,7 +39,8 @@ const useTablePage = (getDataHandle) => {
   })
 
   watch(() => route.query, val => {
-    console.log('route.query change', val)
+    // 页面离开是也会触发这里，需要判断
+    if (routeName !== route.name) return
     if (JSON.stringify(val) === '{}') {
       initRoute()
     } else {
@@ -50,12 +56,12 @@ const useTablePage = (getDataHandle) => {
   })
   onBeforeUnmount(() => {
     if (isClearRouterQuery) {
-      clearRouteQuery(router, routerName)
+      clearRouteQuery(router, routeName)
     }
   })
   const initRoute = () => {
+    // TODO: 捋一下逻辑，添加注释
     let pageOption = store.state.user.pageOption[route.name]
-    console.log('pageopton', pageOption)
     const query = route.query // 有query.super表示从别的页面跳转过来
     if (query.super || !pageOption) {
       delete query.super
@@ -90,11 +96,28 @@ const useTablePage = (getDataHandle) => {
     if (height < 100) {
       height = null
     }
-    console.log('table height:', height)
     tableData.tableHeight = height
   }
   const handleSelectionChange = (values) => {
     tableData.selectedTable = values
+  }
+
+  const openAddDialog = () => {
+    editDialogData.data = { action: 'add' }
+    editDialogData.visible = true
+  }
+  const openUpdateDialog = (item) => {
+    editDialogData.data = copy(item)
+    editDialogData.visible = true
+  }
+
+  const goAddPage = () => {
+    isClearRouterQuery = false
+    router.push({ name: `${routeName}_Add`, query: {} })
+  }
+  const goUpdatePage = (id) => {
+    isClearRouterQuery = false
+    router.push({ name: `${routeName}_Update`, params: { id: id } })
   }
 
   return {
@@ -104,6 +127,11 @@ const useTablePage = (getDataHandle) => {
     tableData,
     handleSelectionChange,
     handleRefresh,
+    goAddPage,
+    goUpdatePage,
+    openAddDialog,
+    openUpdateDialog,
+    editDialogData,
   }
 }
 
