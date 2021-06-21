@@ -48,6 +48,7 @@
 import { getUser, addUser, updateUser } from 'api/template'
 import useEditPage from 'hooks/useEditPage'
 import { useRouter } from 'vue-router'
+import { validatePhone, regExpEmail, validateFormChineseLength } from 'utils/validate'
 
 export default {
   components: {
@@ -70,12 +71,15 @@ export default {
     const editFormRule = {
       name: [
         { required: true, type: 'string', message: '请填写姓名', trigger: 'change' },
-        // { validator: validateFormChineseLength(2, 10), message: '姓名由2-10位汉字组成', trigger: 'change' },
+        { validator: validateFormChineseLength(2, 10), message: '姓名由2-10位汉字组成', trigger: 'change' },
       ],
-      // phone: [{ required: true, validator: validatorPhone, trigger: 'change' }],
+      phone: [
+        { required: true, type: 'string', message: '请填写手机号', trigger: 'blur' },
+        { validator: validatePhone, message: '请检查手机格式', trigger: 'blur' },
+      ],
       email: [
         { required: true, type: 'string', message: '请填写邮箱', trigger: 'change' },
-        // { pattern: regExpEmail, message: '请检查邮箱格式', trigger: 'change' },
+        { pattern: regExpEmail, message: '请检查邮箱格式', trigger: 'change' },
       ],
       sex: [{ required: true, type: 'number', message: '请选择性别', trigger: 'change' }],
       age: [{ required: true, type: 'number', message: '请填写年龄', trigger: 'blur' }],

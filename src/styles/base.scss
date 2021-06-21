@@ -121,3 +121,8 @@ a{
 .el-table-column--selection .cell{
   padding: 0 !important;
 }
+
+// 解决数字输入框中增加、减少的样式问题
+.el-input-number__increase, .el-input-number__decrease{
+  top: 2px;
+}

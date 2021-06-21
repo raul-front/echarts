@@ -207,3 +207,18 @@ export const clearRouteQuery = (router, routerName) => {
   store.commit('user/CLEAR_PAGE_OPTION', routerName)
   router.replace({ query: {} })
 }
+
+// 用于调试
+// 在打印json数据时，控制台默认收缩的数据，不方便查看内层数据
+export const console = function (json, flag = 'log') {
+  const a = [`${flag}--------------------`]
+  for (const k in json) {
+    if (typeof json[k] === 'object') {
+      a.push(`${k}: ${JSON.stringify(json[k])}`)
+    } else {
+      a.push(`${k}: ${json[k]}`)
+    }
+  }
+  a.push('--------------------')
+  window.console.log(a.join('\n'))
+}

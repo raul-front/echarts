@@ -69,7 +69,7 @@
 import { ref } from 'vue'
 import { listUser, deleteUser } from 'api/template'
 import { employeeStatusData } from '@/filter/const'
-import { confirmExecHandle, constDataToArray, filter } from 'utils/func'
+import { confirmExecHandle, constDataToArray, filter, console } from 'utils/func'
 import useTablePage from 'hooks/useTablePage'
 import { ElMessage } from 'element-plus'
 import EditDialog from './EditDialog.vue'
@@ -99,6 +99,7 @@ export default {
             addr: x.addr,
           }
         })
+        console(list)
         return { list: list, total: res.total }
       })
     }
