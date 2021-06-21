@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="editForm.action === 'update' ? '修改员工' : '添加员工'" v-model="thisVisible" width="600px">
+  <el-dialog :title="isUpdate ? '修改员工' : '添加员工'" v-model="thisVisible" width="600px">
     <el-form ref="editFormRef" :model="editForm" :rules="editFormRule" label-width="100px" v-loading="editFormLoading">
       <el-form-item label="姓名：" prop="name">
         <el-input v-model.trim="editForm.name" placeholder="请填写姓名"></el-input>
@@ -30,19 +30,17 @@
 </template>
 
 <script>
-import { ref, watch, onMounted, computed, toRaw, reactive, h, toRefs, nextTick } from 'vue'
-import { filter, copy } from 'utils/func'
-import { ElMessage } from 'element-plus'
+import { addUser, updateUser, getUser } from 'api/template'
+import useTableEditDialog from 'hooks/useTableEditDialog.js'
 
 export default {
   props: {
     visible: Boolean,
     editData: Object,
+    id: [Number, String],
   },
-  components: {
-  },
+  emits: ['editSuccess', 'update:visible'],
   setup (props, { emit }) {
-    const editFormRef = ref(null)
     const defaultForm = {
       action: 'add',
       name: '',
@@ -51,10 +49,6 @@ export default {
       birth: '',
       addr: '',
     }
-    const thisVisible = ref(false)
-    const editFormLoading = ref(false)
-    const submitBtnLoading = ref(false)
-    const editForm = ref(copy(defaultForm))
     const editFormRule = {
       name: [
         { required: true, type: 'string', message: '请填写姓名', trigger: 'change' },
@@ -72,84 +66,47 @@ export default {
         { required: true, type: 'string', message: '请填写地址', trigger: 'blur' },
       ],
     }
-    watch(() => props.visible, val => {
-      if (val && val !== thisVisible.value) {
-        if (props.editData.action === 'add') {
-          openAddDialog()
-        } else {
-          openUpdateDialog()
-        }
-      }
-    })
-    watch(thisVisible, val => {
-      emit('update:visible', val)
-    })
 
-    const resetForm = () => {
-      editFormRef.value && editFormRef.value.resetFields()
+    const handleAddData = (data) => {
+      return addUser(data)
+    }
+    const handleUpdateData = (id, data) => {
+      return updateUser(id, data)
     }
 
-    const openAddDialog = () => {
-      submitBtnLoading.value = false
-      resetForm()
-      editForm.value = copy(defaultForm)
-      thisVisible.value = true
+    // 可选函数，用于初始化update数据
+    const handleInitUpdateData = (data) => {
+      return data
     }
-    const openUpdateDialog = () => {
-      // this.editForm = this.getUpdateData(row)
-      // this.editForm.action = 'update'
-      // setTimeout(() => {
-      //   this.editFormLoading = false
-      // }, 200)
-      editFormLoading.value = true
-      resetForm()
-      editForm.value = copy(props.editData)
-      console.log('edit', editForm)
-      submitBtnLoading.value = false
-      thisVisible.value = true
-      setTimeout(() => {
-        editFormLoading.value = false
-      }, 200)
-    }
-
-    onMounted(() => {
-    })
-
-    const handleSubmitForm = () => {
-      editFormRef.value.validate((valid) => {
-        if (valid) {
-          submitBtnLoading.value = true
-
-          // if (this.editForm.action === 'update') {
-          //   this.updateData()
-          // } else {
-          //   this.addData()
-          // }
-        } else {
-          ElMessage.error('表单校验失败')
-        }
+    const handleGetDetail = (id) => {
+      return getUser(id).then(res => {
+        // 这里可以处理数据，可以直接调handleInitUpdateData就不用传进入了
+        return res.data
       })
     }
-    const handleCloseDialog = () => {
-      thisVisible.value = false
-      resetForm()
-    }
+
+    const {
+      editFormRef,
+      thisVisible,
+      editForm,
+      isUpdate,
+      editFormLoading,
+      submitBtnLoading,
+      handleCloseDialog,
+      handleSubmitForm,
+    } = useTableEditDialog({ props, emit, defaultForm, handleInitUpdateData, handleAddData, handleUpdateData, handleGetDetail })
 
     return {
       editFormRef,
       thisVisible,
+      isUpdate,
       editForm,
       editFormRule,
       editFormLoading,
       submitBtnLoading,
       handleCloseDialog,
       handleSubmitForm,
-
     }
   },
 }
 </script>
-
-<style lang="sass">
-
-</style>

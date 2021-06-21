@@ -59,7 +59,10 @@
       </template>
     </r-table>
   </div>
-  <edit-dialog v-model:visible="editDialogData.visible" :edit-data="editDialogData.data"></edit-dialog>
+
+  <!-- <edit-dialog v-model:visible="editDialogData.visible" :edit-data="editDialogData.data" @editSuccess="handleRefresh"></edit-dialog> -->
+  <!-- edit-data 不能删，add时用到 -->
+  <edit-dialog v-model:visible="editDialogData.visible" :id="editDialogData.data.id" :edit-data="editDialogData.data" @editSuccess="handleRefresh"></edit-dialog>
 </template>
 
 <script>

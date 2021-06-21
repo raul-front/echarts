@@ -151,10 +151,10 @@ export default {
     })
 
     // 编辑用户
-    mock.onPatch(/\/users\/\d+/).reply(config => {
+    mock.onPut(/\/users\/\d+/).reply(config => {
       const id = config.url.split('/users/')[1]
       const { name, addr, age, birth, sex } = JSON.parse(config.data)
-      _Users.some(u => {
+      _Users.forEach(u => {
         if (u.id === id) {
           u.name = name
           u.addr = addr
