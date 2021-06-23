@@ -2,12 +2,12 @@ BUCKET=raul-admin
 
 # 初始化submodule
 initModule:
-  git submodule init
-  git submodule update
+	git submodule init
+	git submodule update
 
 # 更新submodule
 updateModule:
-  git submodule foreach git pull origin master
+	git submodule foreach git pull origin master
 
 # 本地提交部署
 localDeploy:
