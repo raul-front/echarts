@@ -45,10 +45,10 @@
 </template>
 
 <script>
-import { getUser, addUser, updateUser } from 'api/template'
-import useEditPage from 'hooks/useEditPage'
 import { useRouter } from 'vue-router'
-import { validatePhone, regExpEmail, validateFormChineseLength } from 'utils/validate'
+import { getUser, addUser, updateUser } from 'api/template'
+import useEditPage from 'lisa/hooks/useEditPage'
+import { validatePhone, regExpEmail, validateFormChineseLength } from 'lisa/utils/validate'
 
 const validatorPhone = (rule, value, callback) => {
   if (value === '') {

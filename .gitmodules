@@ -1,0 +1,3 @@
+[submodule "src/lisa"]
+	path = src/lisa
+	url = git@github.com:raul-front/lisa-pc-admin.git

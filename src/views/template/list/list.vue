@@ -5,27 +5,27 @@
         <el-form :inline="true">
             <!-- 下拉列表 list从const中获取-->
             <el-form-item>
-              <page-select queryKey="status" :list="employeeStatusList"></page-select>
+              <r-page-select queryKey="status" :list="employeeStatusList"></r-page-select>
             </el-form-item>
             <!-- 带选项的搜索输入框 -->
             <el-form-item>
-              <page-search-input :list="selectSearchList"></page-search-input>
+              <r-page-search-input :list="selectSearchList"></r-page-search-input>
             </el-form-item>
             <!-- 年选择 -->
             <!-- <el-form-item>
-              <select-date type="year"></select-date>
+              <r-select-date type="year"></r-select-date>
             </el-form-item> -->
             <!-- 月份选择 -->
             <!-- <el-form-item>
-              <select-date :allow-after="false" type="month"></select-date>
+              <r-select-date :allow-after="false" type="month"></r-select-date>
             </el-form-item> -->
             <!-- 日期选择 -->
             <el-form-item>
-              <select-date></select-date>
+              <r-select-date></r-select-date>
             </el-form-item>
             <!-- 时间选择 -->
             <el-form-item>
-              <select-time></select-time>
+              <r-select-time></r-select-time>
             </el-form-item>
         </el-form>
       </template>
@@ -67,11 +67,11 @@
 
 <script>
 import { ref } from 'vue'
+import { ElMessage } from 'element-plus'
+import { confirmExecHandle, constDataToArray, filter, console } from 'lisa/utils/func'
+import useTablePage from 'lisa/hooks/useTablePage'
 import { listUser, deleteUser } from 'api/template'
 import { employeeStatusData } from '@/filter/const'
-import { confirmExecHandle, constDataToArray, filter, console } from 'utils/func'
-import useTablePage from 'hooks/useTablePage'
-import { ElMessage } from 'element-plus'
 import EditDialog from './EditDialog.vue'
 
 export default {

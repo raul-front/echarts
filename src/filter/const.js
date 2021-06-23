@@ -7,20 +7,6 @@
  * eg: filter(0, 'cardType'), 结果为身份证
  */
 
-// 性别
-export const sexData = {
-  0: '女',
-  1: '男',
-  default: '保密',
-}
-
-// 员工状态
-export const employeeStatusData = {
-  DISABLE: '离职',
-  ENABLE: '正常',
-  default: '',
-}
-
 // 证件类型
 export const cardTypeData = {
   0: '身份证',
@@ -33,5 +19,12 @@ export const cardTypeData = {
   E: '户口簿',
   F: '临时身份证',
   P: '外国人永久居留证',
+  default: '',
+}
+
+// 员工状态
+export const employeeStatusData = {
+  DISABLE: '离职',
+  ENABLE: '正常',
   default: '',
 }

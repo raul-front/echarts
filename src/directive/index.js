@@ -1,10 +1,17 @@
 
 export default (app) => {
+  const lisaDirectives = import.meta.globEager('../lisa/directive/*.js')
+  console.log('lisaDirectives', lisaDirectives)
+  Object.keys(lisaDirectives).forEach(path => {
+    const directiveName = path.replace(/(.*\/)*([^.]+).*/ig, '$2')
+    app.directive(directiveName, lisaDirectives[path].default)
+  })
+
   // 不会包含 index.js 本身
-  const allDirectives = import.meta.globEager('./*.js')
-  Object.keys(allDirectives).forEach(fileName => {
-    const directiveName = fileName.replace(/^\.\//, '').replace(/\.js$/, '')
-    app.directive(directiveName, allDirectives[fileName].default)
+  const directives = import.meta.globEager('./*.js')
+  Object.keys(directives).forEach(path => {
+    const directiveName = path.replace(/(.*\/)*([^.]+).*/ig, '$2')
+    app.directive(directiveName, directives[path].default)
   })
 }
 

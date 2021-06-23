@@ -30,8 +30,8 @@
 </template>
 
 <script>
+import useTableEditDialog from 'lisa/hooks/useTableEditDialog'
 import { addUser, updateUser, getUser } from 'api/template'
-import useTableEditDialog from 'hooks/useTableEditDialog.js'
 
 export default {
   props: {

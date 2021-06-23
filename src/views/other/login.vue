@@ -7,7 +7,7 @@
 <script>
 import storage from 'utils/storage'
 // import { listLoginConfig, getLoginCode, loginByPhone, wxLogin, bindWebapp, checkBindMp } from 'api/account'
-import { validatePhone } from 'utils/validate'
+import { validatePhone } from 'lisa/utils/validate'
 import config from '@/config'
 
 export default {

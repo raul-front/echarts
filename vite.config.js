@@ -10,6 +10,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
+      lisa: resolve(__dirname, 'src/lisa'),
       styles: resolve(__dirname, 'src/styles'),
       hooks: resolve(__dirname, 'src/hooks'),
       components: resolve(__dirname, 'src/components'),
@@ -22,7 +23,7 @@ export default defineConfig({
       scss: {
         javascriptEnabled: true,
         additionalData: (content, loaderContext) => {
-          return "@import 'styles/mixins.scss';" + content
+          return "@import 'lisa/styles/mixins.scss';" + content
         },
       },
     },

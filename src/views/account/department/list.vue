@@ -6,7 +6,7 @@
 
 <script>
 import { ref, onMounted, computed, toRaw, reactive, h, toRefs, nextTick } from 'vue'
-import { filter } from 'utils/func'
+import { filter } from 'lisa/utils/func'
 
 export default {
   props: {},
