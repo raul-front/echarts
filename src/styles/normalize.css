@@ -347,3 +347,25 @@ template {
 [hidden] {
   display: none;
 }
+
+
+/* 下面是自己加的 */
+input {
+  border    : none;
+  outline   : none;
+  background: none;
+}
+ul, li {
+  padding   : 0;
+  list-style: none;
+}
+p {
+  margin: 0;
+}
+img {
+  display: block;
+  width  : 100%;
+}
+* {
+  box-sizing: border-box;
+}
