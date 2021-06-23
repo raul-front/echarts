@@ -4,6 +4,7 @@ BUCKET=raul-admin
 initModule:
   git submodule init
   git submodule update
+
 # 更新submodule
 updateModule:
   git submodule foreach git pull origin master
