@@ -1,8 +1,21 @@
 <template>
-  <div class="component-flex-page">
-    <el-button type="primary">xxx</el-button>
-    <i class="el-icon-edit"></i>
-    <i class="iconfont icon-reload"></i>
+  <div class="home">
+    <el-card>
+      <template #header>
+          <span>监控大屏</span>
+      </template>
+      <el-row :gutter="12">
+        <el-col :span="6" v-for="item in largeScreenList" :key="item.id">
+          <router-link :to="{name: item.routeName}">
+            <el-card shadow="always">
+              <template #header>
+                  <span>{{item.title}}</span>
+              </template>
+            </el-card>
+          </router-link>
+        </el-col>
+      </el-row>
+    </el-card>
   </div>
 </template>
 <script>
@@ -10,40 +23,17 @@ import { defineComponent, ref, watch } from 'vue'
 
 export default defineComponent({
   setup () {
-    const selectedKeys = ref(['1'])
-    const openKeys = ref(['sub1'])
-
-    const handleClick = e => {
-      console.log('click', e)
-    }
-
-    const titleClick = e => {
-      console.log('titleClick', e)
-    }
-    const clickHandle = (e) => {
-      console.log('e', e)
-    }
-
-    watch(
-      () => openKeys,
-      val => {
-        console.log('openKeys', val)
-      },
-    )
-    const defaultSelectedKeys = ref([])
-    const defaultOpenKeys = ref([])
+    const largeScreenList = ref([
+      { id: 1, title: '监控大屏1', routeName: 'Large_Screen_1' },
+    ])
     return {
-      defaultSelectedKeys,
-      defaultOpenKeys,
-      selectedKeys,
-      openKeys,
-      handleClick,
-      titleClick,
-      clickHandle,
+      largeScreenList,
     }
   },
 })
 </script>
 <style lang="scss">
-
+.home{
+  padding: 30px;
+}
 </style>

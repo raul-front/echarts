@@ -7,6 +7,10 @@ export default defineConfig({
   plugins: [
     vue(),
   ],
+  base: '/echarts/',
+  build: {
+    outDir: 'dist/echarts',
+  },
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
@@ -26,6 +30,11 @@ export default defineConfig({
           return "@import 'lisa/styles/mixins.scss';" + content
         },
       },
+    },
+    postcss: {
+      plugins: [require('postcss-px2rem')({
+        remUnit: 80,
+      })],
     },
   },
   server: {

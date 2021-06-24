@@ -4,6 +4,8 @@
  * @Date: 2021-06-20 15:57:00
  */
 
+const lisas = ['REmpty']
+
 export default {
   install (Vue) {
     const lisaComponents = import.meta.globEager('../../lisa/components/common/*.vue')
@@ -11,6 +13,10 @@ export default {
       const component = lisaComponents[fileName]
       const componentName = fileName.replace(/(.*\/)*([^.]+).*/ig, '$2')
       Vue.component(componentName, component.default || component)
+      if (lisas.includes(componentName)) {
+        const component = lisaComponents[fileName]
+        Vue.component(componentName, component.default || component)
+      }
     })
 
     const components = import.meta.globEager('./*.vue')
