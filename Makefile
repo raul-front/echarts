@@ -8,6 +8,8 @@ initModule:
 # 更新submodule
 updateModule:
 	git submodule foreach git pull origin master
+	git commit -am 'update submodule: lisa'
+	git push origin master
 
 # 本地提交部署
 localDeploy:
