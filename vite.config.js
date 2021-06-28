@@ -31,11 +31,13 @@ export default defineConfig({
         },
       },
     },
-    postcss: {
-      plugins: [require('postcss-px2rem')({
-        remUnit: 80,
-      })],
-    },
+    // 没有找到指定文件的方法，配置后所有页面都配置了，对于只有监控页面的项目可以这样配置
+    // 某也页面使用时，只能用在页面中写成rem单位
+    // postcss: {
+    //   plugins: [require('postcss-px2rem')({
+    //     remUnit: 80,
+    //   })],
+    // },
   },
   server: {
     port: 3000,

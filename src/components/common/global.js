@@ -10,9 +10,7 @@ export default {
   install (Vue) {
     const lisaComponents = import.meta.globEager('../../lisa/components/common/*.vue')
     Object.keys(lisaComponents).forEach(fileName => {
-      const component = lisaComponents[fileName]
       const componentName = fileName.replace(/(.*\/)*([^.]+).*/ig, '$2')
-      Vue.component(componentName, component.default || component)
       if (lisas.includes(componentName)) {
         const component = lisaComponents[fileName]
         Vue.component(componentName, component.default || component)

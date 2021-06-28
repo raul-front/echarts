@@ -1,3 +1,5 @@
+import echarts from 'echarts';
+
 (function (root, factory) {
   // eslint-disable-next-line no-undef
   if (typeof define === 'function' && define.amd) {
@@ -12,7 +14,7 @@
     factory(exports, require('echarts'))
   } else {
     // Browser globals
-    factory({}, root.echarts)
+    factory({}, echarts)
   }
 })(this, function (exports, echarts) {
   const log = function (msg) {

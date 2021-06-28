@@ -4,7 +4,7 @@
 
 <script>
 import { ref, onMounted, onUnmounted, watch } from 'vue'
-import * as echarts from 'echarts'
+import echarts from 'echarts'
 
 export default {
   props: {

@@ -9,7 +9,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "dayjs": "^1.10.5",
-    "echarts": "^5.1.2",
+    "echarts": "^4.9.0",
     "echarts-liquidfill": "^3.0.0",
     "element-plus": "^1.0.2-beta.44",
     "nprogress": "^0.2.0",
