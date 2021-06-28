@@ -8,6 +8,9 @@ import installElementPlus from './plugins/element-plus.js'
 import installDirectives from './directive/index.js'
 import 'styles/index.scss'
 
+// 解决（Added non-passive event..）提示
+import 'default-passive-events'
+
 import Mock from './mock'
 Mock.bootstrap()
 
