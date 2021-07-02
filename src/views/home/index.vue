@@ -25,7 +25,8 @@ import { defineComponent, ref } from 'vue'
 export default defineComponent({
   setup () {
     const largeScreenList = ref([
-      { id: 1, title: '监控大屏1', routeName: 'Large_Screen_1', img: 'public/images/large-screen-page/large-screen-1.png' },
+      // 为了打包后能方法，加上 publicDir
+      { id: 1, title: '监控大屏1', routeName: 'Large_Screen_1', img: '/echarts/images/large-screen-page/large-screen-1.png' },
     ])
     return {
       largeScreenList,
