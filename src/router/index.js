@@ -14,6 +14,11 @@ const appRoute = [
     component: () => import('@/views/largescreen/screen1/index.vue'),
   },
   {
+    path: '/large-screen-2',
+    name: 'Large_Screen_2',
+    component: () => import('@/views/largescreen/screen1/index2.vue'),
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: () => import('@/views/other/notFound.vue'),
