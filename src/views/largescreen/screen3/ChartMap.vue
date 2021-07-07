@@ -34,7 +34,7 @@ export default {
     }
 
     const initChart = async () => {
-      const data = await fetch('echarts/data/yushui.json').then(res => res.json())
+      const data = await fetch('/echarts/data/yushui.json').then(res => res.json())
       console.log('yushui ', data)
       const dom = mapChartRef.value
       const mapName = 'yushuiqu'
