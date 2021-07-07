@@ -11,7 +11,7 @@
     "dayjs": "^1.10.5",
     "default-passive-events": "^2.0.0",
     "echarts": "^4.9.0",
-    "echarts-liquidfill": "^3.0.0",
+    "echarts-liquidfill": "^2.0.6",
     "element-plus": "^1.0.2-beta.44",
     "nprogress": "^0.2.0",
     "spark-md5": "^3.0.1",

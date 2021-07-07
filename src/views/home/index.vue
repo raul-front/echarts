@@ -49,6 +49,7 @@ export default defineComponent({
       // 为了打包后能方法，加上 publicDir
       { id: 1, title: '监控大屏1', routeName: 'Large_Screen_1', img: '/echarts/images/large-screen-page/large-screen-1.png' },
       { id: 2, title: '监控大屏2', routeName: 'Large_Screen_2', img: '/echarts/images/large-screen-page/large-screen-1.png' },
+      { id: 3, title: '监控大屏3', routeName: 'Large_Screen_3', img: '/echarts/images/large-screen-page/large-screen-1.png' },
     ])
 
     const openScreenPage = (item) => {

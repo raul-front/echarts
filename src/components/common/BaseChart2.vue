@@ -39,9 +39,9 @@ export default {
     }
 
     watch(() => props.resize, () => {
-      _resize()
+      methodResize()
     })
-    const _resize = () => {
+    const methodResize = () => {
       chartInstance && chartInstance.resize()
     }
 
@@ -51,6 +51,7 @@ export default {
       methodDrawChart,
       methodShowLoading,
       methodHideLoading,
+      methodResize,
     }
   },
 }

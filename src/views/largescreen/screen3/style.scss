@@ -1,0 +1,283 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+li {
+  list-style: none;
+}
+html, body{
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  background: #010a31;
+  color: $color-text;
+  font-family: SourceHanSansSC,system-ui,-apple-system,BlinkMacSystemFont,segoe ui,Roboto,Helvetica,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol;
+  -webkit-font-smoothing: antialiased;
+}
+#app{
+  width: 100%;
+  height: 100%;
+}
+.large-screen-3 {
+  width: 100%;
+  height: 100%;
+  // min-height: 1080px;
+  padding: 0 40px 30px 40px;
+  padding: 0 .5rem .375rem .5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  header {
+    position: relative;
+    height: 81px;
+    height: 1.0125rem;
+    margin-bottom: 36px;
+    margin-bottom: .45rem;
+    background: url(@/assets/images/large-screen-1/head_bg.png) no-repeat;
+    background-size: 100% 100%;
+    h1{
+      // font-size: 38px;
+      font-size: .475rem;
+      color: #fff;
+      text-align: center;
+      // line-height: 100px;
+      line-height: 1.25rem;
+      font-weight: bold;
+    }
+  }
+}
+
+
+.mainbox{
+  $color-primary: #74BCFF;
+  width: 100%;
+  // height: 0;
+  // flex: 1;
+  display: flex;
+  max-width: 1920px; /*no*/
+  min-width: 1024px; /*no*/
+  margin: 0 auto;
+  // padding: 5px 10px 0;
+  padding: .0625rem .125rem 0;
+  .column{
+    width: 0;
+    flex: 3;
+    .panel{
+      position: relative;
+      // margin-bottom: 20px;
+      margin-bottom: .25rem;
+      width: 100%;
+      // background: url(~@/assets/images/common/card_bg1.png) repeat-x top left / 460px 12px,
+      //     url(~@/assets/images/common/card_bg2.png) repeat-x top 12px left / 460px 100%;
+      background: url(@/assets/images/large-screen-3/card_bg1.png) repeat-x top left / 5.75rem .15rem,
+          url(@/assets/images/large-screen-3/card_bg2.png) repeat-x top .15rem left / 5.75rem 100%;
+      // padding-top: 12px;
+      padding-top: .15rem;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      &::before{
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 8px;
+        height: 8px;
+        border-left: 1px solid $color-primary;
+        border-bottom: 1px solid $color-primary;
+      }
+      &::after{
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 8px;
+        height: 8px;
+        border-right: 1px solid $color-primary;
+        border-bottom: 1px solid $color-primary;
+      }
+      .card-title{
+        width: 100%;
+        height: 20px;
+        line-height: 20px;
+        font-size: 20px;
+        text-align: center;
+        font-family: SourceHanSansSC;
+        font-weight: bold;
+        margin-top: 23px;
+        margin-bottom: 20px;
+        padding: 0 24px;
+        box-sizing: border-box;
+      }
+      &-title{
+        // height: 48px;
+        // line-height: 48px;
+        // font-size: 20px;
+        height: .6rem;
+        line-height: .6rem;
+        font-size: .25rem;
+        text-align: center;
+        color: #fff;
+        font-weight: 400;
+        a {
+          margin: 0 0.1875rem;
+          color: #fff;
+          text-decoration: none;
+        }
+      }
+      &-container{
+        flex: 1;
+      }
+      .chart{
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+  }
+  .column:nth-child(2){
+    flex: 5;
+    // margin: 0 10px;
+    margin: 0 .125rem;
+    overflow: hidden;
+  }
+}
+
+
+/* 约束屏幕尺寸 */
+@media screen and (max-width: 1024px) {
+  html {
+    font-size: 42px !important; /*no*/
+  }
+}
+@media screen and (min-width: 1920px) {
+  html {
+    font-size: 80px !important; /*no*/
+  }
+}
+
+.large-screen-3{
+  .panel1{
+    height: 280px;
+    height: 3.5rem;
+  }
+  .panel2{
+    height: 280px;
+    height: 3.5rem;
+  }
+  .panel3{
+    height: 336px;
+    height: 4.2rem;
+  }
+  .panel4{
+    height: 620px;
+    height: 7.75rem;
+    background: url(@/assets/images/large-screen-3/card_map_bg.png) no-repeat center / cover !important;
+  }
+  .panel5{
+    height: 296px;
+    height: 3.7rem;
+  }
+  .panel6{
+    height: 487px;
+    height: 6.0875rem;
+  }
+  .panel7{
+    height: 228px;
+    height: 2.85rem;
+  }
+  .panel8{
+    height: 372px;
+    height: 4.65rem;
+  }
+}
+.large-screen-3 .panel4 .panel4-top{
+  width: 100%;
+  height: 8px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  &::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 8px;
+    height: 8px;
+    border-left: 1px solid #74BCFF;
+    border-top: 1px solid #74BCFF;
+  }
+  &::after{
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 8px;
+    height: 8px;
+    border-right: 1px solid #74BCFF;
+    border-top: 1px solid #74BCFF;
+  }
+}
+.large-screen-3 .panel6 .panel-container{
+  $color-text:#74BCFF;
+  position: relative;
+  .chart {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+  .label-wrap {
+    z-index: 1;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 227px; // 460-233 = 227
+    height: 100%;
+    padding: 31px 0;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .item {
+      width: 100%;
+      height: 156px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .title {
+        text-align: center;
+        font-size: 16px;
+        color: $color-text;
+      }
+      .num {
+        text-align: center;
+        font-family: Arial;
+        font-weight: bold;
+        margin-top: 20px;
+        .num-current {
+          font-size: 40px;
+          color: $color-text;
+        }
+        .num-all {
+          color: $color-text;
+          font-size: 24px;
+        }
+      }
+      &:nth-child(1) {
+        .num-current {
+          color: #74fdff;
+        }
+      }
+      &:nth-child(2) {
+        .num-current {
+          color: #ffdd74;
+        }
+      }
+    }
+  }
+}

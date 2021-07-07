@@ -87,6 +87,7 @@ export default {
     const resizeFlag = ref(0)
 
     const resizeHandle = _.throttle(function (e) {
+      resizeFlag.value++
     }, 100)
 
     const formatNumber = (n) => {
@@ -296,11 +297,11 @@ export default {
       initTime()
       initChart()
       getData()
-      window.addEventListener('resize', resizeHandle())
+      window.addEventListener('resize', resizeHandle)
     })
     onUnmounted(() => {
       clearInterval(timer)
-      window.removeEventListener('resize', resizeHandle())
+      window.removeEventListener('resize', resizeHandle)
     })
 
     return {
